@@ -159,5 +159,19 @@ class RoomsController extends Controller
         return $this->render('create', ['model' => $model]);
     }
     
+    public function actionUpdate($id)
+    {
+        // 1. Create a new Room instance;
+        $model = Room::findOne($id);
+        // 2. Check if $_POST['Room'] contains data and save
+       // model;
+        if( ($model!=null) && $model->load(
+            Yii::$app->request->post()) && ($model->save()) )
+        {
+            return $this->redirect(
+                ['detail', 'id' => $model->id]);
+        }
+        return $this->render('update', ['model' => $model]);
+    }
     
 }
